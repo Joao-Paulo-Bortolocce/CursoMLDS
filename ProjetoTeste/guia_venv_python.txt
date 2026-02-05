@@ -1,0 +1,93 @@
+GUIA PRÁTICO: AMBIENTE VIRTUAL PYTHON (VENV)
+
+=====================================
+
+1. ENTRAR NA PASTA DO PROJETO
+
+Abra o terminal e vá até a pasta:
+
+cd caminho/do/seu/projeto
+
+2. CRIAR UM AMBIENTE VIRTUAL
+
+Dentro da pasta do projeto, execute:
+
+python -m venv venv
+
+Isso criará a pasta “venv”.
+
+3. ATIVAR O AMBIENTE VIRTUAL
+
+Linux / macOS:
+
+source venv/bin/activate
+
+Windows:
+
+venv
+
+Quando ativado, aparecerá:
+
+(venv)
+
+4. INSTALAR BIBLIOTECAS
+
+Com o ambiente ativo:
+
+pip install pandas numpy matplotlib seaborn plotly scikit-learn
+
+5. CRIAR O ARQUIVO requirements.txt
+
+Depois de instalar tudo:
+
+pip freeze > requirements.txt
+
+Para conferir:
+
+cat requirements.txt
+
+6. INSTALAR DEPENDÊNCIAS PELO requirements.txt
+
+Em outro computador ou ambiente:
+
+pip install -r requirements.txt
+
+7. VERIFICAR PACOTES INSTALADOS
+
+pip list
+
+ou
+
+pip check
+
+8. DESATIVAR O AMBIENTE VIRTUAL
+
+Para sair do venv:
+
+deactivate
+
+9. BOAS PRÁTICAS
+
+Crie um arquivo .gitignore com:
+
+venv/ pycache/ *.pyc
+
+Estrutura recomendada:
+
+Projeto/
+├── venv/
+├── dados/
+├── main.py
+├── requirements.txt
+└── README.md
+
+10. CICLO PADRÃO DE USO
+
+Criar venv
+Ativar
+Instalar libs
+Trabalhar
+Atualizar requirements
+Desativar
+
+FIM DO GUIA
