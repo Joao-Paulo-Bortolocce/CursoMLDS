@@ -24,7 +24,7 @@ source venv/bin/activate
 
 Windows:
 
-venv
+venv\Scripts\Activate.ps1
 
 Quando ativado, aparecerá:
 

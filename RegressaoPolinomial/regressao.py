@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1nK_ePrtlVNI8buuWwtaWFuyvuaZmzUm8
 """
 
-!pip install plotly --upgrade
+
 
 import plotly.express as px
 import plotly.graph_objects as go
