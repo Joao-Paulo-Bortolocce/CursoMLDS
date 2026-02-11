@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
-base_casas = pd.read_csv('house_prices.csv')
+base_casas = pd.read_csv('../house_prices.csv')
 x_casas = base_casas.iloc[:,3:19].values
 
 y_casas = base_casas.iloc[:,2].values

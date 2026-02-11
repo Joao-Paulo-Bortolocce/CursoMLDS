@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 
 
-base_plano_saude2= pd.read_csv('plano_saude2.csv')
+base_plano_saude2= pd.read_csv('../plano_saude2.csv')
 # print(base_plano_saude2)
 
 x_plano_saude2 = base_plano_saude2.iloc[:,0:1].values
