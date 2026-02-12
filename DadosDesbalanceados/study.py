@@ -6,8 +6,9 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 from imblearn.under_sampling import TomekLinks
+from imblearn.over_sampling import SMOTE
 
 base_dir = os.path.dirname(__file__)  # Serve para localizar o arquivo .py, para assim poder criar o caminho relativo até os dados em qualquer local
 caminho = os.path.join(base_dir, "..", "dados", "census.csv")
@@ -41,19 +42,39 @@ x_census[:,9]= label_encoder_sex.fit_transform(x_census[:,9])
 x_census[:,13]= label_encoder_country.fit_transform(x_census[:,13])
 
 #SUBAMOSTRAGEM COM TOMEK LINKS
-tl= TomekLinks(sampling_strategy='majority')
-x_under,y_under = tl.fit_resample(x_census,y_census)
+# tl= TomekLinks(sampling_strategy='majority')
+# x_under,y_under = tl.fit_resample(x_census,y_census)
 
-print(x_under.shape, y_under.shape)
+# print(x_under.shape, y_under.shape)
+
+# onehotencorder= ColumnTransformer(transformers=[("OneHot",OneHotEncoder(),[1,3,5,6,7,8,9,13])],remainder="passthrough")
+# x_census=onehotencorder.fit_transform(x_under)
+# # print(x_census.shape)
+
+# x_treinamento,x_teste,y_treinamento,y_teste= train_test_split(x_census,y_under, test_size=0.15,random_state=0)
+# print(x_treinamento.shape, x_teste.shape)
+
+# rf = RandomForestClassifier(criterion="entropy",min_samples_leaf=1, min_samples_split=5, n_estimators=100)
+# rf.fit(x_treinamento,y_treinamento)
+# previsoes = rf.predict(x_teste)
+# print(accuracy_score(y_teste,previsoes))
+# print(classification_report(y_teste,previsoes))
+
+#SOBREAMOSTRAGEM COM SMOTE
+smote= SMOTE(sampling_strategy='minority')
+x_over, y_over = smote.fit_resample(x_census,y_census)
+
+# print(np.unique(y_census,return_counts=True))
+# print(np.unique(y_over,return_counts=True))
 
 onehotencorder= ColumnTransformer(transformers=[("OneHot",OneHotEncoder(),[1,3,5,6,7,8,9,13])],remainder="passthrough")
-x_census=onehotencorder.fit_transform(x_census)
+x_census=onehotencorder.fit_transform(x_over)
 # print(x_census.shape)
+print(x_census.shape,y_over.shape)
 
-x_treinamento,x_teste,y_treinamento,y_teste= train_test_split(x_census,y_census, test_size=0.15,random_state=0)
-print(x_treinamento.shape, x_teste.shape)
-
+x_treinamento,x_teste,y_treinamento,y_teste= train_test_split(x_census,y_over, test_size=0.15,random_state=0)
 rf = RandomForestClassifier(criterion="entropy",min_samples_leaf=1, min_samples_split=5, n_estimators=100)
 rf.fit(x_treinamento,y_treinamento)
 previsoes = rf.predict(x_teste)
 print(accuracy_score(y_teste,previsoes))
+print(classification_report(y_teste,previsoes))
